@@ -7,4 +7,4 @@
 - When the image of an item is clicked, it will show the second image
 - Perform the filter and preserve state correctly
 
-
+[Lifecycle Methods Diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
