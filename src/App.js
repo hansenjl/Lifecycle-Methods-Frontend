@@ -13,11 +13,33 @@ class App extends React.Component{
     term: ""
   }
 
+  componentDidMount(){
+    // fetch all your initial data here
+    fetch('http://localhost:3000/items')
+    .then(res => res.json())
+    .then(response => {
+      this.setState({
+        items: response
+      })
+    })
+  }
+
+  addToCart = (id) => {
+    // button should disappear
+    // add the item to the cart array
+    let item = this.state.items.find((item) => item.id === id )
+    this.setState((prevState) => {
+      return {
+        cart: [...prevState.cart, item]
+      }
+    }, () => console.log(this.state))
+  }
+
   render(){
     return (
       <div className="App">
         <Header />
-        {this.state.page === "Items" ? <ItemsContainer items={this.state.items}/> : <CartContainer cart={this.state.cart}/>}
+        {this.state.page === "Items" ? <ItemsContainer cart={this.state.cart} items={this.state.items} addToCart={this.addToCart}/> : <CartContainer cart={this.state.cart}/>}
       </div>
     );
   }

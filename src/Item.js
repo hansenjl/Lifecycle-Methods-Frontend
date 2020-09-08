@@ -1,16 +1,31 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-function Item({name, image1, image2, price, id}){
-    return (
-        <div className="item" id={id + "-item"}>
-            <h3>{name}</h3>
-            <img alt={name + " image"} src={image1}/>
-            <br/>
-            Price: {price}
-            <br/>
-            <button>Add To Cart</button>
-        </div>
-    )
+class Item extends Component {
+
+
+    componentDidUpdate(){
+        console.log("UPDATED ", this.props.id)
+    }
+
+    shouldComponentUpdate(nextProps){
+        // was there a change between the new props and what we currently have?
+        return !!(this.props.isInCart !== nextProps.isInCart)
+    }
+
+
+    render(){
+        return (
+            <div className="item" id={this.props.id + "-item"}>
+                <h3>{this.props.name}</h3>
+                <img alt={this.props.name + " image"} src={this.props.image1}/>
+                <br/>
+                Price: {this.props.price}
+                <br/>
+                {!this.props.isInCart && <button onClick={(e) => this.props.addToCart(this.props.id)}>Add To Cart</button> }
+
+            </div>
+        )
+    }
 }
 
 export default Item
