@@ -24,6 +24,15 @@ class App extends React.Component{
     })
   }
 
+  changePage = (e) => {
+    this.setState((prevState)=>{
+      let newPage = prevState.page === "Items" ? "Cart" : "Items"
+      return({
+        page: newPage
+      })
+    })
+  }
+
   addToCart = (id) => {
     // button should disappear
     // add the item to the cart array
@@ -38,7 +47,7 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-        <Header />
+        <Header page={this.state.page} changePage={this.changePage}/>
         {this.state.page === "Items" ? <ItemsContainer cart={this.state.cart} items={this.state.items} addToCart={this.addToCart}/> : <CartContainer cart={this.state.cart}/>}
       </div>
     );
