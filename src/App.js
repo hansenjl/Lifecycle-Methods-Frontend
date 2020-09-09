@@ -35,10 +35,18 @@ class App extends React.Component{
     }, () => console.log(this.state))
   }
 
+  toggleView = (e) => {
+    // change the view
+    this.setState((prevState)=>{
+        let newPage = prevState.page === "Items" ? "Cart" : "Items"
+        return {page: newPage}
+    })
+  }
+
   render(){
     return (
       <div className="App">
-        <Header />
+        <Header toggleView={this.toggleView} currentPage={this.state.page}/>
         {this.state.page === "Items" ? <ItemsContainer cart={this.state.cart} items={this.state.items} addToCart={this.addToCart}/> : <CartContainer cart={this.state.cart}/>}
       </div>
     );
