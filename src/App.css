@@ -10,7 +10,7 @@ img {
 .item {
   display: inline-block;
   width: 400px;
-  height: 400px
+  height: 400px;
 }
 
 .App-header {
@@ -28,4 +28,6 @@ img {
   color: #61dafb;
 }
 
-
+#ItemForm {
+  padding: 50px;
+}
