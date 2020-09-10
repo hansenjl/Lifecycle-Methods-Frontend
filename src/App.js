@@ -3,10 +3,10 @@ import Header from "./Header";
 import ItemsContainer from "./ItemsContainer";
 import CartContainer from "./CartContainer";
 import "./App.css";
+import { Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
-    page: "Items",
     items: [],
     cart: [],
     term: "",
@@ -37,14 +37,6 @@ class App extends React.Component {
     );
   };
 
-  toggleView = (e) => {
-    // change the view
-    this.setState((prevState) => {
-      let newPage = prevState.page === "Items" ? "Cart" : "Items";
-      return { page: newPage };
-    });
-  };
-
   addToItems = (item) => {
     this.setState((prevState) => {
       return { items: [...prevState.items, item] };
@@ -54,17 +46,26 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header toggleView={this.toggleView} currentPage={this.state.page} />
-        {this.state.page === "Items" ? (
-          <ItemsContainer
-            addToItems={this.addToItems}
-            cart={this.state.cart}
-            items={this.state.items}
-            addToCart={this.addToCart}
+        <Header />
+
+        <Switch>
+          <Route exact path="/" render={()=> <h1>Welcome to our store!</h1>} />
+
+          <Route path="/items">
+            <ItemsContainer
+              addToItems={this.addToItems}
+              cart={this.state.cart}
+              items={this.state.items}
+              addToCart={this.addToCart}
+            />
+          </Route>
+
+          <Route
+            exact
+            path="/cart"
+            component={() => <CartContainer cart={this.state.cart} />}
           />
-        ) : (
-          <CartContainer cart={this.state.cart} />
-        )}
+        </Switch>
       </div>
     );
   }
