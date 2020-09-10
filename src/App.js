@@ -3,6 +3,10 @@ import Header from "./Header";
 import ItemsContainer from "./ItemsContainer";
 import CartContainer from "./CartContainer";
 import "./App.css";
+import {
+  Switch,
+  Route
+} from "react-router-dom";
 
 class App extends React.Component {
   state = {
@@ -53,19 +57,25 @@ class App extends React.Component {
 
   render() {
     return (
+
       <div className="App">
         <Header toggleView={this.toggleView} currentPage={this.state.page} />
-        {this.state.page === "Items" ? (
-          <ItemsContainer
-            addToItems={this.addToItems}
-            cart={this.state.cart}
-            items={this.state.items}
-            addToCart={this.addToCart}
-          />
-        ) : (
-          <CartContainer cart={this.state.cart} />
-        )}
+        <Switch>
+          <Route path="/items">
+            <ItemsContainer
+                addToItems={this.addToItems}
+                cart={this.state.cart}
+                items={this.state.items}
+                addToCart={this.addToCart}
+              />
+          </Route>
+          <Route exact path="/cart">
+            <CartContainer cart={this.state.cart} />
+          </Route>
+          <Route exact path="/" render={()=><h1>Welcome!</h1>} />
+        </Switch>
       </div>
+
     );
   }
 }
