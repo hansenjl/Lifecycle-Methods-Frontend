@@ -1,6 +1,6 @@
 import React from 'react'
 import Item from './Item'
-import FilterBar from './FilterBar'
+import ItemForm from './ItemForm'
 
 class ItemsContainer extends React.Component {
 
@@ -11,7 +11,7 @@ class ItemsContainer extends React.Component {
     render(){
         return(
             <div id="ItemsContainer">
-              <FilterBar />
+              <ItemForm addToItems={this.props.addToItems}/>
               {this.props.items.map(item => <Item  key={item.id} addToCart={this.props.addToCart} isInCart={this.isInCart(item.id)} name={item.name} price={item.price} id={item.id} image1={item.image1} image2={item.image2} />) }
             </div>
         )
